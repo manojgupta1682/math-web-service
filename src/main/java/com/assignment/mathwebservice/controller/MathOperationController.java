@@ -16,8 +16,6 @@ import com.assignment.mathwebservice.util.MathOperationUtil;
 import com.assignment.mathwebservice.util.OperationType;
 import com.assignment.mathwebservice.vo.OperandVO;
 
-
-
 @RestController
 @RequestMapping("/api")
 public class MathOperationController {
@@ -25,17 +23,20 @@ public class MathOperationController {
 	@Autowired
 	private OperationService operationService;
 
+
+	@SuppressWarnings("unchecked")
 	@ResponseBody
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public <T> ResponseEntity<T> addOperation(@RequestBody OperandVO  operandVO) throws Exception{
 		double res = operationService.calculate(operandVO,OperationType.ADD);
-		
+
 		HashMap<String,String> map = new HashMap<>();
 		map.put("result", MathOperationUtil.convertValueToResponseRequiredString(res));
 
 		return (ResponseEntity<T>) new ResponseEntity<>(map,HttpStatus.OK);
 	}
 
+	@SuppressWarnings("unchecked")
 	@ResponseBody
 	@RequestMapping(value = "/diff", method = RequestMethod.POST)
 	public <T> ResponseEntity<T> subtractOperation(@RequestBody OperandVO  operandVO) throws Exception{
